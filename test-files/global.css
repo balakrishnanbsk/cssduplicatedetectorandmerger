@@ -1,0 +1,59 @@
+/* Global styles — these will conflict with module and Tailwind classes */
+
+.container {
+  padding: 16px;
+  margin: 0 auto;
+  max-width: 1200px;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  padding: 12px;
+  background-color: #f0f0f0;
+}
+
+.button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background-color: blue;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Higher specificity — overrides .button */
+.container .button {
+  background-color: red;
+  font-size: 16px;
+}
+
+/* Even higher specificity */
+#main .container .button {
+  background-color: green;
+  padding: 12px 24px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+/* Duplicate with different specificity */
+h1.title {
+  font-size: 36px;
+  color: #222;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}

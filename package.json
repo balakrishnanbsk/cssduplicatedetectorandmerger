@@ -1,0 +1,182 @@
+{
+  "name": "css-duplicate-detector",
+  "displayName": "CSS Duplicate Detector and Merger",
+  "description": "Scans your stylesheets for classes that declare identical properties — merge duplicates with one click.",
+  "version": "1.0.3",
+  "publisher": "balakrishnanbsk",
+  "author": {
+    "name": "Balakrishnan BSK",
+    "url": "https://github.com/balakrishnanbsk"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/balakrishnanbsk/css-duplicate-detector"
+  },
+  "homepage": "https://github.com/balakrishnanbsk/css-duplicate-detector#readme",
+  "bugs": {
+    "url": "https://github.com/balakrishnanbsk/css-duplicate-detector/issues"
+  },
+  "engines": {
+    "vscode": "^1.106.0"
+  },
+  "categories": [
+    "Linters",
+    "Formatters",
+    "Other"
+  ],
+  "keywords": [
+    "css",
+    "duplicate",
+    "merge",
+    "scss",
+    "less",
+    "refactor",
+    "clean",
+    "deduplicate",
+    "lint",
+    "optimize"
+  ],
+  "activationEvents": [
+    "onLanguage:css",
+    "onLanguage:scss",
+    "onLanguage:less"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cssDuplicateDetector.scan",
+        "title": "Scan Current File for Duplicates",
+        "category": "CSS Duplicate Detector"
+      },
+      {
+        "command": "cssDuplicateDetector.scanWorkspace",
+        "title": "Scan Entire Workspace for Duplicates",
+        "category": "CSS Duplicate Detector"
+      },
+      {
+        "command": "cssDuplicateDetector.scanFolder",
+        "title": "Scan Folder for Duplicates",
+        "category": "CSS Duplicate Detector"
+      },
+      {
+        "command": "cssDuplicateDetector.mergeAll",
+        "title": "Merge All Duplicates in Current File",
+        "category": "CSS Duplicate Detector"
+      },
+      {
+        "command": "cssDuplicateDetector.showResults",
+        "title": "Show Duplicate Results",
+        "category": "CSS Duplicate Detector"
+      },
+      {
+        "command": "cssDuplicateDetector.clearDiagnostics",
+        "title": "Clear All Diagnostics",
+        "category": "CSS Duplicate Detector"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "cssDuplicateDetector.scan",
+          "group": "cssDuplicateDetector@1",
+          "when": "resourceLangId =~ /css|scss|less/"
+        },
+        {
+          "command": "cssDuplicateDetector.mergeAll",
+          "group": "cssDuplicateDetector@2",
+          "when": "resourceLangId =~ /css|scss|less/"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "cssDuplicateDetector.scanFolder",
+          "group": "cssDuplicateDetector@1",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "cssDuplicateDetector.scanWorkspace",
+          "group": "cssDuplicateDetector@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CSS Duplicate Detector",
+      "properties": {
+        "cssDuplicateDetector.enableInlineHints": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show subtle gutter markers on duplicate CSS rules. The Results Panel and Quick Fix actions are always available regardless of this setting."
+        },
+        "cssDuplicateDetector.severityLevel": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "information",
+            "hint",
+            "none"
+          ],
+          "default": "hint",
+          "description": "Diagnostic severity for duplicate rules in the Problems panel. Set to 'none' to hide from Problems panel entirely."
+        },
+        "cssDuplicateDetector.excludeExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "File extensions to exclude from scanning (e.g. [\".module.css\", \".min.css\"])."
+        },
+        "cssDuplicateDetector.excludeFiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Glob patterns for files to exclude from scanning (e.g. [\"**/vendor/**\", \"reset.css\"])."
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "cssDuplicateDetector.duplicateBackground",
+        "description": "Background color for duplicate CSS rules",
+        "defaults": {
+          "dark": "#ffaa0020",
+          "light": "#ffaa0015",
+          "highContrast": "#ffaa0030"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --external:css-tree --format=cjs --platform=node --sourcemap",
+    "watch": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --external:css-tree --format=cjs --platform=node --sourcemap --watch",
+    "test": "esbuild ./src/test.ts --bundle --outfile=out/test.mjs --external:vscode --external:css-tree --format=esm --platform=node && node out/test.mjs",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/css-tree": "^2.3.11",
+    "@types/node": "^25.6.0",
+    "@types/vscode": "^1.106.1",
+    "esbuild": "^0.28.0",
+    "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "css-tree": "^3.2.1"
+  },
+  "bundledDependencies": [
+    "css-tree"
+  ],
+  "bundleDependencies": [
+    "css-tree"
+  ]
+}
