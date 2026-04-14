@@ -87,3 +87,8 @@ Recursive parser handles `&` parent references, deeply nested rules, and reports
 ## License
 
 [MIT](LICENSE)
+
+
+This project is developed independently during personal time 
+and does not contain any proprietary or confidential code 
+from my employer.
